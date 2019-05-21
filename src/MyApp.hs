@@ -1,24 +1,9 @@
 module MyApp (runApp) where 
 
-import Web.Scotty (scotty, get, notFound, text, param, Parsable, parseParam, json, rescue)
-
+import Web.Scotty (scotty, get, notFound, text, param, json, rescue)
 
 import Imas.Idol
-
-data Production = P765
-                | P346
-                | P315
-                | P283
-                  deriving (Show)
-
-instance Parsable Production where
-  parseParam "765" = Right P765
-  parseParam "346" = Right P346
-  parseParam "315" = Right P315
-  parseParam "283" = Right P283
-  parseParam _     = Left "Unknown production"
-
-
+import Imas.Production
 
 textLn t = text $ t <> "\n"
 
