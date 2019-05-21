@@ -10,7 +10,8 @@ rescueOr action a = action `rescue` (\_ -> return a)
 
 routes = do
   -- Homepage
-  get "/" $ text Basic.homepage
+  get "/" $ do
+    textLn Basic.homepage
 
   -- Echo words
   get "/echo/:words" $ do
@@ -32,6 +33,8 @@ routes = do
     q <- param "q" `rescueOr` ""
     json $ Imas.findIdols q
 
-  notFound $ textLn Basic.notFound
+  -- ERROR! 404 NOT FOUND
+  notFound $ do
+    textLn Basic.notFound
 
 runApp = scotty 3000 $ routes
