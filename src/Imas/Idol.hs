@@ -23,9 +23,3 @@ idols346 =
   , Idol "夢見りあむ" "ゆめみりあむ"
   ]
 
-isMatch t Idol{..} = any (isInfixOf t) [name, rubi]
-
-makeQuery "" = id
-makeQuery t  = filter (isMatch t)
-
-search q is = Idols $ q is
