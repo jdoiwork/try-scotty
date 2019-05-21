@@ -5,16 +5,23 @@ import Web.Scotty (scotty, get, notFound, text, param, json, rescue)
 import Imas.Idol
 import Imas.Production
 
+import qualified Services.BasicServices as Basic
+
 textLn t = text $ t <> "\n"
 
 routes = do
   -- Homepage
-  get "/" $ text "hello scotty"
+  get "/" $ text Basic.homepage
 
   -- Echo words
   get "/echo/:words" $ do
     words <- param "words"
-    textLn words
+    textLn $ Basic.echo words
+
+  -- Shout words
+  get "/shout/:words" $ do
+    words <- param "words"
+    textLn $ Basic.shout words
 
   -- Production info
   get "/productions/:id" $ do
@@ -30,6 +37,6 @@ routes = do
     query <- makeQuery <$> param "q" `rescue` (\_ -> return "")
     json $ search query idols346
 
-  notFound $ text "404 not found\n"
+  notFound $ textLn Basic.notFound
 
 runApp = scotty 3000 $ routes
