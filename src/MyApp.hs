@@ -1,6 +1,9 @@
 module MyApp (runApp) where 
 
-import Web.Scotty (scotty, get, notFound, text, param, Parsable, parseParam)
+import Web.Scotty (scotty, get, notFound, text, param, Parsable, parseParam, json, rescue)
+
+
+import Imas.Idol
 
 data Production = P765
                 | P346
@@ -14,6 +17,8 @@ instance Parsable Production where
   parseParam "315" = Right P315
   parseParam "283" = Right P283
   parseParam _     = Left "Unknown production"
+
+
 
 textLn t = text $ t <> "\n"
 
@@ -34,6 +39,11 @@ routes = do
       P346 -> "Mishiro"
       P315 -> "Saitou"
       P283 -> "Amai"
+
+  -- Idol info
+  get "/idols" $ do
+    query <- makeQuery <$> param "q" `rescue` (\_ -> return "")
+    json $ search query idols346
 
   notFound $ text "404 not found\n"
 

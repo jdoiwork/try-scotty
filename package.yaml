@@ -24,11 +24,15 @@ dependencies:
 
 default-extensions:
 - OverloadedStrings
+- DeriveGeneric
+- RecordWildCards
 
 library:
   source-dirs: src
   dependencies:
   - scotty
+  - text
+  - aeson
 
 executables:
   try-scotty-exe:
