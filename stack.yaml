@@ -67,3 +67,5 @@ image:
   container:
     name: try-scotty
     base: "fpco/stack-run"
+    add:
+      public: "/public"
