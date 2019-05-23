@@ -5,6 +5,8 @@ import Web.Scotty (scotty, get, notFound, text, param, json, rescue)
 import qualified Services.BasicServices as BasicServices
 import qualified Services.ImasServices  as ImasServices
 
+import System.Environment (lookupEnv)
+
 textLn t = text $ t <> "\n"
 rescueOr action a = action `rescue` (\_ -> return a)
 
@@ -37,4 +39,13 @@ routes = do
   notFound $ do
     textLn $ BasicServices.notFound
 
-runApp = scotty 3000 $ routes
+getPort = do
+  port <- lookupEnv "PORT"
+  return $ case port of
+    Nothing -> 3000
+    Just n -> read n
+
+runApp = do
+  port <- getPort
+
+  scotty port $ routes
