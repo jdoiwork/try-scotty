@@ -1,6 +1,6 @@
 module MyApp (runApp) where 
 
-import Web.Scotty (scotty, get, notFound, text, param, json, rescue)
+import Web.Scotty (scotty, get, notFound, file, text, param, json, rescue)
 
 import qualified Services.BasicServices as BasicServices
 import qualified Services.ImasServices  as ImasServices
@@ -13,9 +13,15 @@ rescueOr action a = action `rescue` (\_ -> return a)
 routes = do
   -- Homepage
   get "/" $ do
-    textLn $ BasicServices.homepage
+    file $ BasicServices.homepage
 
-  -- Echo words
+  get "/hello" $ do
+    textLn $ BasicServices.hello
+  
+  get "/app.js" $ do
+    file $ BasicServices.appJs
+
+    -- Echo words
   get "/echo/:words" $ do
     words <- param "words"
     textLn $ BasicServices.echo words
