@@ -1,6 +1,6 @@
 # try-scotty
 
-Haskell の Scotty の練習
+Haskell の Scotty の練習 [Demo](https://jdoi-try-scotty.herokuapp.com/)
 
 ## Docker build
 
