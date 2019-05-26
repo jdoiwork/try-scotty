@@ -66,6 +66,9 @@ packages:
 image:
   container:
     name: try-scotty
-    base: "fpco/stack-run"
+    #base: "fpco/stack-run"
+    base: "fpco/stack-build-small"
     add:
       public: "/public"
+    #entrypoints:
+    #  - try-scotty-exe

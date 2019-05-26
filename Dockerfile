@@ -1,3 +1,4 @@
 FROM try-scotty
 
-CMD /usr/local/bin/try-scotty-exe
+ENTRYPOINT ["/usr/local/bin/try-scotty-exe"]
+CMD []
